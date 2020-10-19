@@ -85,7 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     static var userHomeDirectoryPath : String {
         let pw = getpwuid(getuid())
         let home = pw?.pointee.pw_dir
-        let homePath = FileManager.default.string(withFileSystemRepresentation: home!, length: Int(strlen(home)))
+        let homePath = FileManager.default.string(withFileSystemRepresentation: home!, length: Int(strlen(home!)))
         
         return homePath
     }

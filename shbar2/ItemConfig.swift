@@ -197,7 +197,7 @@ class ItemConfig : Codable {
                     // Set delegate and add.
                     UNUserNotificationCenter.current().delegate = self.delegate
                     UNUserNotificationCenter.current().add(request) { (error) in
-                        print(error)
+                        print(error as Any)
                     }
                 }
                 
@@ -455,9 +455,9 @@ class ItemConfig : Codable {
         
         // 2. Dispatch script for other title.
         if let titleScript = self.titleScript {
-            titleScript.execute { [weak self] _, result in
+            titleScript.execute(completed:  { [weak self] _, result in
                 self?.menuItem?.title = result
-            }
+            })
             
             // While we're executing the title script,
             // Also set up a timer if we need it.
@@ -466,7 +466,7 @@ class ItemConfig : Codable {
                     timer in
                     
                     // In the future, execute the title updates
-                    titleScript.execute { [weak self] _, result in
+                    titleScript.execute(completed:  { [weak self] _, result in
                         // Update in background.
                         self?.menuItem?.title = result
                         print(result)
@@ -474,7 +474,7 @@ class ItemConfig : Codable {
                         if self == nil {
                             timer.invalidate()
                         }
-                    }
+                    })
                 })
             }
         }

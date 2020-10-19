@@ -135,7 +135,7 @@ class Script : Codable {
             task.waitUntilExit()
             let status = task.terminationStatus
             let data = pipe.fileHandleForReading.readDataToEndOfFile()
-            let output: String = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as! String
+            let output: String = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
             print("Child process exited with code \(status)")
             DispatchQueue.main.sync {
                 completed?(status, output)
